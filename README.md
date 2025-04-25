@@ -64,6 +64,39 @@ You may also see any lint errors in the console.
 10. Once the pull request is approved and merged you can pull the changes from upstream to your local repo and delete your extra branch(es).
 11. And last but not least: Always write your commit messages in the present tense. Your commit message should describe what the commit, when applied, does to the code – not what you did to the code.
 
+    
+🛠️ Issues in package.json / package-lock.json
+1. Old package-lock.json
+You're getting:
+npm warn old lockfile
+This means the lock file was created with an older version of npm (probably v6 or v7), but you're currently using npm v10.8.2.
+
+Solution: You can regenerate the lockfile with the current version of npm:
+rm package-lock.json
+npm install
+This will recreate package-lock.json compatible with your current Node.js and npm.
+
+2. Engine Compatibility Warning
+npm warn EBADENGINE Unsupported engine {
+  package: 'react-lottie@1.2.3',
+  required: { npm: '^3.0.0' },
+  current: { node: 'v18.20.8', npm: '10.8.2' }
+}
+The react-lottie package declares support only for old npm v3, but you're using npm v10. This doesn't break things now, but it's a bad sign for long-term maintenance.
+
+Options:
+
+Ignore if everything works.
+
+Replace react-lottie with a maintained fork like lottie-react.
+
+🧹 Optional Cleanup
+Run this to fix vulnerabilities and clean dependencies:
+npm audit fix
+For aggressive cleanup (may break things):
+npm audit fix --force
+
+
 ## You can report issues on this project using Github issue 
 1. You can read more about this from [Github Docs](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue)
 
