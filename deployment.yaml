@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e-commarce-book-app
+  labels:
+    app: e-commarce-book-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: e-commarce-book-app
+  template:
+    metadata:
+      labels:
+        app: e-commarce-book-app
+    spec:
+      containers:
+      - name: e-commarce-book-app
+        image: maheshpenna96/book-e-commarce:replaceImageTag
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: e-commarce-book-app
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: e-commarce-book-app
