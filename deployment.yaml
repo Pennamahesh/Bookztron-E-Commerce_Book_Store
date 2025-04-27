@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: e-commarce-book-app
-        image: maheshpenna96/book-e-commarce:17
+        image: maheshpenna96/book-e-commarce:replaceImageTag
         ports:
         - containerPort: 80
 
