@@ -48,3 +48,53 @@ pipeline {
         }
     }
 }
+
+
+
+/*
+sed -i "s|\(image: .*:\).*|\1${BUILD_NUMBER}|" deployment.yaml
+🔍 Step-by-step Explanation:
+1. sed -i
+-i = inline edit (modifies the file directly).
+
+2. s|...|...|
+sed substitution syntax.
+We use | instead of / to avoid conflicts with / in image names (e.g., myrepo/app).
+
+3. Search Pattern: \(image: .*:\).*
+image: — matches the literal string "image:"
+
+.*: — matches any characters (image name) followed by a colon (:)
+
+\(...\) — captures the above as group 1
+
+.* — matches the tag (which we want to replace)
+
+Example matched line:
+
+t
+image: myrepo/myapp:oldtag
+Group 1 (captured):
+
+
+image: myrepo/myapp:
+4. Replacement: \1${BUILD_NUMBER}
+\1 — refers to the captured group 1 (image: myrepo/myapp:)
+
+${BUILD_NUMBER} — inserts the Jenkins build number (e.g., 24)
+
+So the line becomes:
+
+
+image: myrepo/myapp:24
+Example Before and After:
+Before:
+
+
+image: myregistry/myapp:latest
+After Jenkins build 42:
+
+
+image: myregistry/myapp:42
+
+*/
